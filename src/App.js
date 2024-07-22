@@ -1,27 +1,39 @@
 import './App.css';
+import {useState} from 'react';
 
 function App() {
+	
+	const [mode, setModeFunc] = useState( 'WELCOME' );
+	
 	const topicList = [
 		{ id : 1, title : 'html', body : 'html is...'},
 		{ id : 2, title : 'css', body : 'css is...'},
 		{ id : 3, title : 'js', body : 'javascript is...'},
 	]
-	const alertHello = (e) => {
-		console.log( e );
-		e.preventDefault();
-		alert( 'hello' );
+	
+	let content = null;
+	if ( mode === 'WELCOME' ) {
+		content = <Article title="Welcome" body="Hello, WEB" />;
 	}
+	else if ( mode === 'READ') {
+		content = <Article title="Read" body="Hello, READ" />;
+	}
+	
 	return (
 		<div className="rootDiv">
-			<Header title="WEB" onCustomEvent={alertHello}/>
-			<Nav list={topicList}></Nav>
-			<Article title="Welcome" body="Hello, WEB" />
+			<Header title="WEB" onCustomEvent={() => {
+				setModeFunc('WELCOME');
+			}}/>
+			<Nav list={topicList} onCustomEvent={( id ) => {
+				console.log( id );
+				setModeFunc('READ');
+			}}></Nav>
+			{content}
 		</div>
 	);
 }
 
 function Header( props ) {
-	
 	return (
 		<header>
 			<h1>
@@ -37,8 +49,8 @@ function Nav( props ) {
 		list.push(
 			<li key={item.id} id={item.id} onClick={ e => {
 				e.preventDefault();
-				console.log( item.id );
-			}}>
+				props.onCustomEvent( item.id );
+			} }>
 				<a href={'/read/' + item.id}>{ item.title }</a>
 			</li>
 		);
