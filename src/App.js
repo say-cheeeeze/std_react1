@@ -6,9 +6,14 @@ function App() {
 		{ id : 2, title : 'css', body : 'css is...'},
 		{ id : 3, title : 'js', body : 'javascript is...'},
 	]
+	const alertHello = (e) => {
+		console.log( e );
+		e.preventDefault();
+		alert( 'hello' );
+	}
 	return (
 		<div className="rootDiv">
-			<Header title="WEB"/>
+			<Header title="WEB" onCustomEvent={alertHello}/>
 			<Nav list={topicList}></Nav>
 			<Article title="Welcome" body="Hello, WEB" />
 		</div>
@@ -16,26 +21,31 @@ function App() {
 }
 
 function Header( props ) {
+	
 	return (
 		<header>
 			<h1>
-				<a href="/">{ props.title }</a>
+				<a href="/" onClick={props.onCustomEvent}>{ props.title }</a>
 			</h1>
 		</header>
 	)
-	
 }
 
 function Nav( props ) {
 	const list = [];
 	for( let item of props.list ) {
-		list.push( <li key={item.id} id={item.id}><a href={'/read/' + item.id}>{ item.title }</a></li> );
+		list.push(
+			<li key={item.id} id={item.id} onClick={ e => {
+				e.preventDefault();
+				console.log( item.id );
+			}}>
+				<a href={'/read/' + item.id}>{ item.title }</a>
+			</li>
+		);
 	}
 	
 	return <nav>
-		<ol>
-			{ list }
-		</ol>
+		<ol>{ list }</ol>
 	</nav>;
 }
 
