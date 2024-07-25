@@ -1,0 +1,6 @@
+npx create-react-app 으로 프로젝트 생성
+
+npm start [cmd] 로 package.json 스크립트 실행
+
+# router 설치
+npm -i -D react-router-dom
