@@ -7,26 +7,16 @@ function Layout() {
 	return (
 		<>
 			<hr/>
-			<ul>
-				<li>
-					<a href="/">Home</a>
-				</li>
-				<li>
-					<a href="/tutorial">tutorial</a>
-				</li>
-				<li>
-					<a href="/board">Board</a>
-				</li>
-			</ul>
+			{/*<Link to="/">Home</Link>*/}
+			{/*<Link to="/tutorial">Home</Link>*/}
+			{/*<Link to="/board">Board</Link>*/}
 			<BrowserRouter>
 				<hr/>
 				<Routes>
 					<Route path="/" element={ <Tutorial/> }>
-						<Route index element={ <Tutorial/> }/>
-						<Route path="tutorial" element={ <Tutorial/> }/>
 						<Route path="board" element={ <Board/> }/>
-						<Route path="*" element={ <NotFound/> }/>
 					</Route>
+					<Route path="*" element={ <NotFound/> }/>
 				</Routes>
 			</BrowserRouter>
 		</>
